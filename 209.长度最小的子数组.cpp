@@ -38,7 +38,19 @@
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
-        
+        int sum = 0;
+        int res = INT32_MAX;
+        int start = 0;
+        for (int end=0;end<nums.size();end++) {
+            sum = sum + nums[end];
+            while (sum >= target) {
+                int tmp_res = end - start + 1;
+                res = res > tmp_res ? tmp_res : res;
+                sum = sum - nums[start];
+                start = start + 1;
+            }
+        }
+        return INT32_MAX > res ? res : 0;
     }
 };
 // @lc code=end
