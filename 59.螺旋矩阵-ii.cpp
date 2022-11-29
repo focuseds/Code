@@ -13,6 +13,7 @@ public:
          int max_pos = n - 1;
          vector<vector<int>> result(n, vector<int>(n, 0));
          while (count <= n * n){
+            // 单独给n为奇数的矩阵中间赋值
             if (min_pos == max_pos) {
                 result[min_pos][min_pos] = count++;
             }
