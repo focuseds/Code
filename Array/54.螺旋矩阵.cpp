@@ -8,6 +8,7 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        // 未解决非行列式矩阵案例
         int m = matrix.size();
         int n = matrix[0].size();
 
