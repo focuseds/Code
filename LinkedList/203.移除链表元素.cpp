@@ -21,18 +21,18 @@ public:
         // 删除头结点
         while (head != nullptr && head->val == val) {
             ListNode * tmp = head;
-            head = head->next;
+            head = tmp->next;
             delete tmp;
         }
         // 删除非头结点
-        ListNode * pos = head;
-        while (pos != nullptr && pos->next != nullptr) {
-            if (pos->next->val == val) {
-                ListNode * tmp = pos->next;
-                pos->next = pos->next->next;
+        ListNode * cur = head;
+        while (cur != nullptr && cur->next != nullptr) {
+            if (cur->next->val == val) {
+                ListNode * tmp = cur->next;
+                cur->next = tmp->next;
                 delete tmp;
             } else {
-                pos = pos -> next;
+                cur = cur->next;
             }
         }
         return head;
