@@ -19,15 +19,15 @@ public:
     }
     
     int get(int index) {
-        LinkedNode * cur = _virtualHead->next;
-        while (cur != nullptr && index + 1 <= _size) {
-            if (index == 1) {
-                return cur->next->val;
-            }
+        if (index < 0 || index + 1 > _size) {
+            return -1;
+        }
+        LinkedNode * cur = _virtualHead;
+        while (index != -1) {
             cur = cur->next;
             index = index - 1;
         }
-        return -1;
+        return cur->val;
     }
     
     void addAtHead(int val) {
@@ -38,44 +38,46 @@ public:
     }
     
     void addAtTail(int val) {
-        LinkedNode * cur = _virtualHead->next;
+        LinkedNode * cur = _virtualHead;
         LinkedNode * newNode = new LinkedNode(val);
-        while (cur != nullptr) {
+        while (cur->next != nullptr) {
             cur = cur->next;
-            if (cur->next == nullptr) {
-                cur->next = newNode;
-                _size = _size + 1;
-            }
         }
+        cur->next = newNode;
+        _size = _size + 1;
     }
     
     void addAtIndex(int index, int val) {
         LinkedNode * newNode = new LinkedNode(val);
-        LinkedNode * cur = _virtualHead->next;
-        while (cur != nullptr && index + 1 <= _size) {
-            if (index == 1) {
-                newNode->next = cur->next;
-                cur->next = newNode;
-                _size = _size + 1;
+        LinkedNode * cur = _virtualHead;
+        if (index  == _size) {
+            this->addAtTail(val);
+        } else if (index + 1 > _size) {} 
+        else {
+            while (index != 0) {
+                cur = cur->next;
+                index = index - 1;
             }
-            cur = cur->next;
-            index = index - 1;
+            newNode->next = cur->next;
+            cur->next = newNode;
+            _size = _size + 1;
         }
     }
     
     void deleteAtIndex(int index) {
-        LinkedNode * cur = _virtualHead->next;
-        while (cur != nullptr && index + 1 <= _size) {   //
-            if (index == 1) {
-                LinkedNode * tmp = cur->next;
-                cur->next = tmp->next;
-                delete tmp;
-                _size = _size - 1;
+        LinkedNode * cur = _virtualHead;
+        if (index < 0 || index + 1 > _size) {} else {
+            while (index != -1) {
+                if (index == 0) {
+                    LinkedNode * tmp = cur->next;
+                    cur->next = tmp->next;
+                    delete tmp;
+                    _size = _size - 1;
+                }
+                cur = cur->next;
+                index = index - 1;
             }
-            cur = cur->next;
-            index = index - 1;
         }
-        
     }
 
 private:
