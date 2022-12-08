@@ -8,20 +8,16 @@
 class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-        unordered_map<int, int> countOne;
-        vector<int> res;
+        unordered_set<int> countOne(nums1.begin(), nums1.end());
+        unordered_set<int> res;
 
-        for (auto i : nums1) {
-            countOne[i] = countOne[i] + 1;
-        }
         for (auto i : nums2) {
-            if (countOne.count(i)) {
-                res.emplace_back(i);
-                countOne.erase(i);
+            if (countOne.find(i) != countOne.end()) {
+                res.insert(i);
             }
         }
 
-        return res;
+        return vector<int>(res.begin(), res.end());
     }
 };
 // @lc code=end
